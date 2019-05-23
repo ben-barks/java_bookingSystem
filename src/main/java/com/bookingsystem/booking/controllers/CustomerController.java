@@ -1,6 +1,7 @@
 package com.bookingsystem.booking.controllers;
 
 
+import com.bookingsystem.booking.models.Course;
 import com.bookingsystem.booking.models.Customer;
 import com.bookingsystem.booking.repository.BookingRepository.BookingRepository;
 import com.bookingsystem.booking.repository.CourseRepository.CourseRepository;
@@ -26,7 +27,7 @@ public class CustomerController {
     CustomerRepository customerRepository;
 
     @GetMapping(value = "/{course}")
-    public List<Customer> findCustomersByCourse(String course){
+    public List<Customer> findCustomersByCourse(Course course){
         return customerRepository.findCustomersByCourse(course);
     }
 }

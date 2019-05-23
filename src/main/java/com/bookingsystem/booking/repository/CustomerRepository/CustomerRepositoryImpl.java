@@ -1,6 +1,7 @@
 package com.bookingsystem.booking.repository.CustomerRepository;
 
 import com.bookingsystem.booking.models.Booking;
+import com.bookingsystem.booking.models.Course;
 import com.bookingsystem.booking.models.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -17,7 +18,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom{
     EntityManager entityManager;
 
     @Transactional
-    public List<Customer> findCustomersByCourse(String course){
+    public List<Customer> findCustomersByCourse(Course course){
         List<Customer> result = null;
         Session session = entityManager.unwrap(Session.class);
         try{

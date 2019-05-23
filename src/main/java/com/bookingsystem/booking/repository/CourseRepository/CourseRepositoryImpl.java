@@ -1,6 +1,7 @@
 package com.bookingsystem.booking.repository.CourseRepository;
 
 import com.bookingsystem.booking.models.Course;
+import com.bookingsystem.booking.models.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -32,5 +33,22 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom{
             session.close();
         }
         return results;
+    }
+
+    @Transactional
+    public List<Course> findCoursesByCustomer(Customer customer){
+        List<Course> result = null;
+        Session session = entityManager.unwrap(Session.class);
+        try{
+            Criteria cr = session.createCriteria(Course.class);
+            cr.createAlias("bookings", "bookingAlias");
+            cr.add(Restrictions.eq("bookingAlias.customer", customer));
+
+            result = cr.list();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return result;
     }
 }
