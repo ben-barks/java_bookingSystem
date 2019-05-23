@@ -5,6 +5,7 @@ import com.bookingsystem.booking.models.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class CustomerRepositoryImpl implements CustomerRepositoryCustom{
 
+    @Autowired
     EntityManager entityManager;
 
     @Transactional
@@ -20,7 +22,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom{
         Session session = entityManager.unwrap(Session.class);
         try{
             Criteria cr = session.createCriteria(Customer.class);
-            cr.createAlias("booking", "bookingAlias");
+            cr.createAlias("bookings", "bookingAlias");
             cr.add(Restrictions.eq("bookingAlias.course", course));
 
             result = cr.list();
@@ -30,5 +32,4 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom{
         }
         return result;
     }
-
 }
